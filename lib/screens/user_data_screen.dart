@@ -1,3 +1,5 @@
+import 'package:expenz/screens/main_screen.dart';
+import 'package:expenz/services/user_details_service.dart';
 import 'package:expenz/utils/colors.dart';
 import 'package:expenz/utils/constants.dart';
 import 'package:expenz/widgets/custum_button.dart';
@@ -176,7 +178,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                       //   child: Text('TextButton'),
                       // ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             String userName = _usernameController.text;
                             String email = _emailController.text;
@@ -184,7 +186,28 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             String confirmPassword =
                                 _confirmPasswordContorller.text;
 
-                            print("$userName $password $email");
+                            // Save this data in sharedPreferences----------
+
+                            await UserService.storeUserDetails(
+                              username: userName,
+                              email: email,
+                              password: password,
+                              confirmPassword: confirmPassword,
+                              context: context,
+                            );
+
+                            //navigate to the main screen
+
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return MainScreen();
+                                  },
+                                ),
+                              );
+                            }
                           }
                         },
                         child: CustumButton(

@@ -31,6 +31,7 @@ class SharedOnboardingScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(kDefalutPadding),
             child: Text(
+              textAlign: TextAlign.center, 
               description,
               style: TextStyle(
                 fontSize: 15,
