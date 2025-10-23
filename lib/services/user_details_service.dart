@@ -55,4 +55,11 @@ class UserService {
     await prefs.remove('username');
     await prefs.remove('email');
   }
+
+  static Future<bool> checkUserName() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    Future.delayed(Duration(milliseconds: 5000));
+    String? username = pref.getString("username");
+    return username != null;
+  }
 }
